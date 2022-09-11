@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 export const Background = () => {
   return (

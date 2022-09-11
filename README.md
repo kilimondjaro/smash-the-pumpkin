@@ -8,7 +8,7 @@ A game made for a [Make it an App]() YouTube channel for educational purposes.
 
 ## Node.js
 
-Install the [LTS Node.js](https://nodejs.org/en/download/ | height=100) version for your operating system
+Install the [LTS Node.js](https://nodejs.org/en/download/) version for your operating system
 
 ## Git
 
@@ -47,4 +47,5 @@ npm run start
 [Figma mock-ups](https://www.figma.com/file/z2NmJqjVZsnkdexkvOdzzx/Make-It-an-App?node-id=101%3A3)
 
 # License
+
 [MIT](./LICENSE.md)

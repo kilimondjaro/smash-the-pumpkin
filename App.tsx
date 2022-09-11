@@ -19,9 +19,10 @@ export default function App() {
   const [pumpkinTopOffset, setPumpkinTopOffset] = useState(0);
 
   const [score, setScore] = useState(0);
-  const screenDimensions = useWindowDimensions();
   const [gameState, setGameState] = useState<GameState>('initial');
   const [timeLeft, setTimeLeft] = useState(gameTimeLimitInSeconds);
+
+  const screenDimensions = useWindowDimensions();
 
   // Actions section
   const startGame = () => {
@@ -58,7 +59,7 @@ export default function App() {
   } else if (gameState === 'gameInProgress') {
     headerText1 = `Score: ${score}`;
     headerText2 = `Time left: ${timeLeft}`;
-    playButtonText = 'Play';
+    playButtonText = null;
   } else {
     headerText1 = 'Gave Over';
     headerText2 = `Score: ${score}`;
@@ -74,13 +75,12 @@ export default function App() {
           <Text style={[styles.text, styles.headerText2]}>{headerText2}</Text>
         </View>
         <View style={styles.content}>
-          {gameState === 'gameInProgress' ? (
+          {gameState === 'gameInProgress' && (
             <View style={{ marginLeft: pumpkinLeftOffset, marginTop: pumpkinTopOffset }}>
               <Pumpkin onPress={handlePumpkinPress} />
             </View>
-          ) : (
-            <Button text={playButtonText} onPress={startGame} />
           )}
+          {playButtonText && <Button text={playButtonText} onPress={startGame} />}
         </View>
       </View>
     </AppContainer>
