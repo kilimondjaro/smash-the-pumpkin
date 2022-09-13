@@ -71,8 +71,8 @@ export default function App() {
       <View style={styles.container}>
         <Background />
         <View style={styles.header}>
-          <Text style={[styles.text, styles.headerText1]}>{headerText1}</Text>
-          <Text style={[styles.text, styles.headerText2]}>{headerText2}</Text>
+          {headerText1 && <Text style={[styles.text, styles.headerText1]}>{headerText1}</Text>}
+          {headerText2 && <Text style={[styles.text, styles.headerText2]}>{headerText2}</Text>}
         </View>
         <View style={styles.content}>
           {gameState === 'gameInProgress' && (
