@@ -1,30 +1,46 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, useWindowDimensions } from 'react-native';
 
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
-
-import { Button } from './ui/Button';
 import { Background } from './ui/Background';
-import { AppContainer } from './ui/AppContainer';
+import { FontProvider } from './ui/FontProvider';
+import { Button } from './ui/Button';
 import { Pumpkin, pumpkinDimensions } from './ui/Pumpkin';
 import { startTimer } from './utils/timer';
 import { getRandomNumber } from './utils/random';
 
 type GameState = 'initial' | 'gameInProgress' | 'gameOver';
+
 const gameTimeLimitInSeconds = 10;
 
 export default function App() {
-  // States section
-
-  const [pumpkinLeftOffset, setPumpkinLeftOffset] = useState(0);
-  const [pumpkinTopOffset, setPumpkinTopOffset] = useState(0);
-
-  const [score, setScore] = useState(0);
   const [gameState, setGameState] = useState<GameState>('initial');
+  const [score, setScore] = useState(0);
   const [timeLeft, setTimeLeft] = useState(gameTimeLimitInSeconds);
 
-  const screenDimensions = useWindowDimensions();
+  const windowDimensions = useWindowDimensions();
 
-  // Actions section
+  const getRandomPumpkinLocation = () => {
+    const leftOffset = getRandomNumber(
+      windowDimensions.width - pumpkinDimensions.width
+    );
+
+    const topOffset = getRandomNumber(
+      (windowDimensions.height / 4) * 3 - pumpkinDimensions.height
+    );
+
+    return {
+      leftOffset,
+      topOffset,
+    };
+  };
+
+  const [pumpkinLeftOffset, setPumpkinLeftOffset] = useState(
+    getRandomPumpkinLocation().leftOffset
+  );
+  const [pumpkinTopOffset, setPumpkinTopOffset] = useState(
+    getRandomPumpkinLocation().topOffset
+  );
+
   const startGame = () => {
     setGameState('gameInProgress');
     setScore(0);
@@ -39,80 +55,98 @@ export default function App() {
   };
 
   const handlePumpkinPress = () => {
-    setPumpkinLeftOffset(getRandomNumber(screenDimensions.width - pumpkinDimensions.width));
-    setPumpkinTopOffset(
-      getRandomNumber((screenDimensions.height / 4) * 3 - pumpkinDimensions.height)
-    );
+    const newPumpkinLocation = getRandomPumpkinLocation();
 
-    setScore(score + 1);
+    setPumpkinLeftOffset(newPumpkinLocation.leftOffset);
+    setPumpkinTopOffset(newPumpkinLocation.topOffset);
+
+    setScore(score => score + 1);
   };
 
-  // Layout
-  let headerText1;
-  let headerText2;
+  let headerTitle1;
+  let headerTitle2;
   let playButtonText;
 
-  if (gameState === 'initial') {
-    headerText1 = 'Smash pumpkin to start';
-    headerText2 = null;
-    playButtonText = 'Play';
-  } else if (gameState === 'gameInProgress') {
-    headerText1 = `Score: ${score}`;
-    headerText2 = `Time left: ${timeLeft}`;
-    playButtonText = null;
-  } else {
-    headerText1 = 'Gave Over';
-    headerText2 = `Score: ${score}`;
-    playButtonText = 'Play Again';
+  switch (gameState) {
+    case 'initial': {
+      headerTitle1 = 'Smash the Pumpkin';
+      headerTitle2 = null;
+      playButtonText = 'Play';
+      break;
+    }
+    case 'gameInProgress': {
+      headerTitle1 = `Score: ${score}`;
+      headerTitle2 = `Time left: ${timeLeft}`;
+      playButtonText = null;
+      break;
+    }
+    case 'gameOver': {
+      headerTitle1 = 'Game Over';
+      headerTitle2 = `Score: ${score}`;
+      playButtonText = 'Play Again';
+      break;
+    }
   }
 
   return (
-    <AppContainer>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <FontProvider>
         <Background />
         <View style={styles.header}>
-          {headerText1 && <Text style={[styles.text, styles.headerText1]}>{headerText1}</Text>}
-          {headerText2 && <Text style={[styles.text, styles.headerText2]}>{headerText2}</Text>}
+          {headerTitle1 && (
+            <Text style={[styles.text, styles.headerText1]}>
+              {headerTitle1}
+            </Text>
+          )}
+          {headerTitle2 && (
+            <Text style={[styles.text, styles.headerText2]}>
+              {headerTitle2}
+            </Text>
+          )}
         </View>
         <View style={styles.content}>
+          {playButtonText && (
+            <Button text={playButtonText} onPress={startGame} />
+          )}
           {gameState === 'gameInProgress' && (
-            <View style={{ marginLeft: pumpkinLeftOffset, marginTop: pumpkinTopOffset }}>
+            <View
+              style={{
+                position: 'absolute',
+                left: pumpkinLeftOffset,
+                top: pumpkinTopOffset,
+              }}
+            >
               <Pumpkin onPress={handlePumpkinPress} />
             </View>
           )}
-          {playButtonText && <Button text={playButtonText} onPress={startGame} />}
         </View>
-      </View>
-    </AppContainer>
+      </FontProvider>
+    </View>
   );
 }
 
-// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'hsla(219, 81%, 12%, 1)',
   },
   header: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 60,
-    flex: 1,
   },
   content: {
     flex: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
-    fontFamily: 'Margarine',
-    fontWeight: 'bold',
     color: 'white',
-    textAlign: 'center',
+    fontFamily: 'Margarine',
   },
   headerText1: {
     fontSize: 40,
   },
   headerText2: {
-    marginTop: 12,
     fontSize: 30,
   },
 });

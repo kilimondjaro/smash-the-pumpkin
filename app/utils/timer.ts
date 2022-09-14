@@ -12,7 +12,12 @@ type Timer = {
   onFinish: () => void;
 };
 
-export const startTimer = ({ timeout, tickInterval, onTick, onFinish }: Timer) => {
+export const startTimer = ({
+  timeout,
+  tickInterval,
+  onTick,
+  onFinish,
+}: Timer) => {
   const intervalId = setInterval(() => {
     onTick();
   }, tickInterval * 1000);
