@@ -7,7 +7,7 @@ type FontProviderProps = {
 
 export const FontProvider = ({ children }: FontProviderProps) => {
   const [isFontLoaded] = useFonts({
-    Margarine: require('../assets/fonts/Margarine.ttf'),
+    Margarine: require('../assets/fonts/Margarine-Regular.ttf'),
   });
 
   if (!isFontLoaded) {

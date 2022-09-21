@@ -1,8 +1,14 @@
 # Smash the Pumpkin
 
-A game made for a [Make it an App]() YouTube channel for educational purposes.
+A game made for a [Make it an App](https://www.youtube.com/channel/UCxzXrz2J80Z_lfCBB5PU9og) YouTube channel for educational purposes.
 
 <img src="./screenshots/gameInterface.PNG" width="375">
+
+# Would you like to support me?
+
+If you like this project and you want to support me, consider joining me on [Patreon](https://www.patreon.com/makeitanapp). Your help would mean a lot to me and allow me to create more projects about React Native and mobile development in future
+
+[<img src="./screenshots/patreon.jpg" width="100">](https://www.patreon.com/makeitanapp)
 
 # Requirements
 
