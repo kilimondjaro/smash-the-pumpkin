@@ -1,4 +1,4 @@
-# Smash the Pumpkin
+# Smash the Pumpkin 🎃
 
 A React Native example app made for a [Make it an App](https://www.youtube.com/channel/UCxzXrz2J80Z_lfCBB5PU9og) YouTube channel for educational purposes.
 
