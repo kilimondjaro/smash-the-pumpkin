@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
   },
   text: {
-    fontFamily: 'Margarine-Regular',
+    fontFamily: 'Margarine',
     fontSize: 35,
     color: 'white',
   },

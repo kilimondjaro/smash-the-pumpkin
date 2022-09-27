@@ -1,6 +1,6 @@
 # Smash the Pumpkin
 
-A game made for a [Make it an App](https://www.youtube.com/channel/UCxzXrz2J80Z_lfCBB5PU9og) YouTube channel for educational purposes.
+A React Native example app made for a [Make it an App](https://www.youtube.com/channel/UCxzXrz2J80Z_lfCBB5PU9og) YouTube channel for educational purposes.
 
 <img src="./screenshots/gameInterface.PNG" width="375">
 
