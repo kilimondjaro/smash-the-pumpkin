@@ -10,7 +10,7 @@ import { getRandomNumber } from './utils/random';
 
 type GameState = 'initial' | 'gameInProgress' | 'gameOver';
 
-const gameTimeLimitInSeconds = 10;
+const gameTimeLimitInSeconds = 30;
 
 export default function App() {
   const [gameState, setGameState] = useState<GameState>('initial');
